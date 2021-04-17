@@ -1,27 +1,21 @@
 ---
-bio: My research interests include distributed robotics, mobile computing and programmable
-  matter.
 education:
   courses:
-  - course: PhD in Artificial Intelligence
-    institution: Stanford University
-    year: 2012
-  - course: MEng in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2009
-  - course: BSc in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2008
-email: ""
+  - course: MS in Data Science & Business Analytics
+    institution: UNC Charlotte
+    year: 2022
+  - course: BA in Economics
+    institution: UNC Chapel Hill
+    year: 2021
+email: "samuell2017@outlook.com"
 highlight_name: false
 interests:
-- Artificial Intelligence
-- Computational Linguistics
-- Information Retrieval
+- Prediction
+- Recommender Systems
 organizations:
 - name: University of North Carolina - Charlotte
   url: https://www.uncc.edu/
-role: Data Science and Business Analytics Graduate Student
+role: Masters of Data Science and Business Analytics Candidate
 social:
 - icon: envelope
   icon_pack: fas
@@ -31,22 +25,18 @@ social:
   icon: twitter
   icon_pack: fab
   label: Follow me on Twitter
-  link: https://twitter.com/GeorgeCushen
-- icon: graduation-cap
-  icon_pack: fas
-  link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
+  link: https://twitter.com/sam_louissaint
 - icon: github
   icon_pack: fab
-  link: https://github.com/gcushen
+  link: https://github.com/SamL153
 - icon: linkedin
   icon_pack: fab
-  link: https://www.linkedin.com/
+  link: https://www.linkedin.com/in/samuel-louissaint-420783163/
 superuser: true
 title: Samuel Louissaint
 ---
 
-Nelson Bighetti is a professor of artificial intelligence at the Stanford AI Lab. His research interests include distributed robotics, mobile computing and programmable matter. He leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+Samuel Louissaint is a UNC Chapel Hill alum with a BA in Economics, with minors in Statistics and PPE. He is a first-year graduate student in UNC Charlotte's Data Science & Business Analytics PSM program. His research interests include prediction and recommender systems.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.
 
-{{< icon name="download" pack="fas" >}} Download my {{< staticref "media/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}.
+{{< icon name="download" pack="fas" >}} Download my {{< staticref "media/samuellouissaint_resume.pdf" "newtab" >}}resumé{{< /staticref >}}.
