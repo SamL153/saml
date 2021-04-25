@@ -1,0 +1,184 @@
+---
+title: Spotify Hits
+author: Samuel Louissaint
+date: '2021-04-20'
+slug: spotify-hits
+categories: []
+tags: []
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-04-20T12:47:13-04:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+It doen't take an avid music listener to notice that many popular songs have the same formula to them. Radio stations can often sound like the same song is playing on repeat, with slightly different variants of the same song gaining recognition and winning awards.
+
+This very thought led me to find a Spotify dataset that contained all Billboard top 10 songs from the years 2010 to 2019. All there was left to do was explore it a bit.
+```{r include=FALSE}
+library(tidyverse)
+library(readr)
+library(gt)
+top10s = read.csv("~/Data Science/Personal Website/saml/content/post/2021-04-20-spotify-hits/top10s.csv")
+no1 = read.csv("~/Data Science/Personal Website/saml/content/post/2021-04-20-spotify-hits/Number1s.csv")
+head(top10s)
+head(no1)
+```
+
+I started by doing some exploratory analysis of the dataset.
+While the categorical variables are self-explanatory, here's a key for the quantitative variables for reference:
+
+    - acousticness (Ranges from 0 to 1)
+    - danceability (Ranges from 0 to 1)
+    - energy (Ranges from 0 to 1)
+    - duration_ms (Integer typically ranging from 200k to 300k)
+    - instrumentalness (Ranges from 0 to 1)
+    - valence (Ranges from 0 to 1)
+    - popularity (Ranges from 0 to 100)
+    - tempo (Float typically ranging from 50 to 150)
+    - liveness (Ranges from 0 to 1)
+    - loudness (Float typically ranging from -60 to 0)
+    - speechiness (Ranges from 0 to 1)
+
+```{r echo=TRUE}
+summary(top10s)
+```
+
+Songs that generally have the same sound could be explained by a number of reasons, such as coming from the same genre or artist. With that in mind, I wanted to explore the relationship between top songs and the artist making them a little more.
+```{r echo=FALSE}
+Data1a = top10s %>%
+  transmute(artist, year) %>%
+  group_by(artist)
+Data1b = Data1a %>%
+  count(artist) %>%
+  filter(n >= 10)
+ggplot(Data1b)+
+  geom_point(mapping = aes(x = artist, y = n)) +
+  ggtitle("# of Top 10 Appearances by Top Artists (n >= 10)") +
+  ylab("# of Songs") +
+  xlab("Artist") +
+  theme(axis.text.x = element_text(face="bold",size= 10, angle= 30), plot.margin= unit(c(0,1,0,0),"cm"))
+```
+
+```{r echo=FALSE}
+ArtistGenres <- top10s %>%
+  group_by(year, top.genre) %>%
+  count(artist)%>%
+  ungroup() %>%
+  spread(key = top.genre, value = n) %>%
+  mutate(total = rowSums(select(., !c("year", "artist"))))
+
+ArtistGenres$total <- rowSums(select(ArtistGenres, !all_of(c("year", "artist"))), na.rm = TRUE)
+
+ArtistGenres$genres <- rowSums(!is.na(select(ArtistGenres, !all_of(c("year", "artist", "total")))))
+
+ByYear <- ArtistGenres %>%
+  select(all_of(c("year", "genres", "total", "artist"))) %>%
+  filter(total >1) %>%
+  group_by(year, genres) %>%
+  count() %>%
+  ungroup()
+
+library(gt)
+
+tableOut <- ByYear %>%
+  gt() %>%
+  tab_header(title = "# of Genres for Artists with Multiple Hits", subtitle = "For each artitst with multiple hits in a year, in  how many genres were their  hits?") %>%
+  cols_label(year = "Year", genres = "# of Genres", n = "# of Artists") %>%
+  cols_align("center")
+
+tableOut
+```
+This brief investigation tells us the top artists over the 10-year period as well as the fact that their respective hits were all within the same genre. This lets us know that artists are hesitant to change the formulas that bring them success. Or that listeners aren't interested in the songs that do change that formula. 
+
+
+I then started wondering about one-hit wonders and the effect that the addition of new streaming platforms had on the variety of artists that created hits.
+```{r echo=FALSE}
+SongsYr <- top10s %>%
+  group_by(year) %>%
+  count(artist)%>%
+  ungroup()
+
+Artists2Hits <- SongsYr %>%
+  filter(n>1) %>%
+  count(year) %>%
+  mutate(artists = n, .keep = "unused")
+
+ggplot(data = Artists2Hits) + 
+  geom_bar(mapping = aes(x = year, y = artists), stat = "identity") +
+  ggtitle("# of artists with more than one hit song by year") +
+  scale_x_continuous("Year", labels = seq(2010, 2020), breaks = seq(2010, 2020)) + 
+  ylab ("Artists with multiple hits") + theme_minimal()
+```
+It's hard to find a trend in the first half of the decade. However, after the spike in 2015, there's a marked decrease in the number of artists that were able to produce multiple hit songs within a year. Rather than attributing this trend solely to streaming platforms, it may also be a byproduct of increasing ways to produce music.
+
+Me, Myself, and I by G Eazy was unmistakably one of the biggest hits on the radio when it was released. Though what I found most interesting was the number of songs that went by the same title though created by different artists (Big Sean and Beyonce to name a couple) in different genres. This led me to investigate whether the subject of a song, expressed by its title, had an effect on whether it would be a hit.
+
+```{r echo=FALSE}
+youtitle = top10s %>%
+  filter(str_detect(title,"You")) %>%
+  count(title)
+You= sum(youtitle$n)-7
+#7 of these 82 don't fall under the you/your/you're family, and will be excluded. Leaving 75.
+lovetitle = top10s %>%
+  filter(str_detect(title,"Love")) %>%
+  count(title)
+Love = sum(lovetitle$n)
+metitle = top10s %>%
+  filter(str_detect(title,"Me")) %>%
+  count(title)
+Me = sum(metitle$n)-10
+#10 of these 54 either have the letters "me" as part of a larger word, or the "me" isn't part of the song title (i.e. being from a movie soundtrack with "me" in its title). Leaving 44.
+ititle = top10s %>%
+  filter(str_detect(title,"I" )) %>%
+  count(title)
+I = sum(ititle$n)-47
+#47 of the 84 simply have the capital letter "I" in them. Leaving 37.
+ittitle = top10s %>%
+  filter(str_detect(title,"It" )) %>%
+  count(title)
+It = sum(ittitle$n)
+mytitle = top10s %>%
+  filter(str_detect(title,"My" )) %>%
+  count(title)
+My= sum(mytitle$n)
+q2data = data.frame("Word" = c("You","Love","Me","I","It","My"), "Count" = c(You,Love,Me,I,It,My))
+ggplot(data=q2data) +
+  geom_point(aes(x=Word, y=Count, color=Word,size=.5)) +
+  ylab("# of Songs in Billboard Top 10") +
+  ggtitle("Relationship between Title Subject and Song Success")
+```
+
+I do realize there is a level of overlap, such as the possibility that a song has multiple subjects and even a verb, allowing a song titled "I Love You" to be cross-listed 3 times. Despite this, "Love" had particularly interesting results in my opinion. Being the only word that is both a noun and a verb, I expected it to appear more often than all except for "You" which was understandably common.
+
+Finally, I'm sure you've noticed the variable "pop" is intuitively related to the likelihood that a song would be in the Billboards Top 10. So I ventured to identify the relationship between the other quantitative variables and a song being a Billboards Number 1. For this, I created a dummy variable that represented whether a song was ever a Billboards Number 1. 
+```{r include=FALSE}
+q1top10 = top10s %>%
+  select(2:15)
+no1 = read_csv("~/Data Science/Personal Website/saml/content/post/2021-04-20-spotify-hits/Number1s.csv")
+no1 = no1 %>%
+  mutate(No.1 = 1) %>%
+  select(-(2:14))
+no1s = q1top10 %>%
+  left_join(no1, by="title","artist")
+no1s[is.na(no1s)] = 0
+str(no1s)
+no1s = no1s %>%
+  select(5:15)
+```
+
+After doing so, I created a basic model to identify the relationship.
+```{r echo=FALSE}
+mod1 = glm(No.1~bpm+nrgy+dnce+dB+live+val+dur+acous+spch, data=no1s, "binomial")
+summary(mod1)
+plot(mod1)
+```
+
+Here we very clearly see that the specifications of the songs aren't the the largest driving factor in the success of a song, as only danceability and speechiness were shown to be statistically significant. The same outcome held even with numerous transformations to the model.
+
+It seems that the unaccounted for variables (artist, genre, etc.) do much of the heavy lifting for a song's success. And honestly no surprise there. This would explain both why songs sound similar, and why those artists don't (and do) feel comfortable changing their styles.
