@@ -22,21 +22,46 @@ date_format: Jan 2006
 #   Leave `date_end` empty if it's your current employer.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 experience:
+  - title: Office Assistant
+    company: UNC Housing
+    company_url: ''
+    company_logo:
+    location: Chapel Hill, NC
+    date_start: '2018-08-19'
+    date_end: ''
+    description: |2-
+        Responsibilities include:
+        
+        * Database Management
+        * Auditing
+        * Customer Service
+
   - title: Investment Analyst Intern
     company: Nanovest, Inc.
     company_url: ''
     company_logo:
     location: North Carolina
-    date_start: '2021-01-01'
-    date_end: ''
+    date_start: '2019-10-01'
+    date_end: '2020-08-01'
     description: |2-
         Responsibilities include:
         
         * Market Research
         * Analyzing
         * Reporting
-        
 
+  - title: Human Resources Assistant
+    company: UNC Chemistry Department
+    company_url: ''
+    company_logo:
+    location: Chapel Hill, NC
+    date_start: '2017-09-12'
+    date_end: '2018-05-08'
+    description: |2-
+        Responsibilities include:
+        
+        * Auditing
+        * Payroll Coordination
 design:
   columns: '2'
 ---
