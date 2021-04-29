@@ -17,7 +17,7 @@ image:
 projects: []
 ---
 
-It doen't take an avid music listener to notice that many popular songs have the same formula to them. Radio stations can often sound like the same song is playing on repeat, with slightly different variants of the same song gaining recognition and winning awards.
+It doesn't take an avid music listener to notice that many popular songs have the same formula to them. Radio stations can often sound like the same song is playing on repeat, with slightly different variants of the same song gaining recognition and winning awards.
 
 This very thought led me to find a Spotify dataset that contained all Billboard top 10 songs from the years 2010 to 2019. All there was left to do was explore it a bit.
 ```{r include=FALSE}
@@ -117,7 +117,7 @@ ggplot(data = Artists2Hits) +
 ```
 It's hard to find a trend in the first half of the decade. However, after the spike in 2015, there's a marked decrease in the number of artists that were able to produce multiple hit songs within a year. Rather than attributing this trend solely to streaming platforms, it may also be a byproduct of increasing ways to produce music.
 
-Me, Myself, and I by G Eazy was unmistakably one of the biggest hits on the radio when it was released. Though what I found most interesting was the number of songs that went by the same title though created by different artists (Big Sean and Beyonce to name a couple) in different genres. This led me to investigate whether the subject of a song, expressed by its title, had an effect on whether it would be a hit.
+Me, Myself, and I by G-Eazy was unmistakably one of the biggest hits on the radio when it was released. Though what I found most interesting was the number of songs that went by the same title though created by different artists (Big Sean and Beyonce to name a couple) in different genres. This led me to investigate whether the subject of a song, expressed by its title, had an effect on whether it would be a hit.
 
 ```{r echo=FALSE}
 youtitle = top10s %>%
@@ -179,6 +179,6 @@ summary(mod1)
 plot(mod1)
 ```
 
-Here we very clearly see that the specifications of the songs aren't the the largest driving factor in the success of a song, as only danceability and speechiness were shown to be statistically significant. The same outcome held even with numerous transformations to the model.
+Here we very clearly see that the specifications of the songs aren't the largest driving factor in the success of a song, as only danceability and speechiness were shown to be statistically significant. The same outcome held even with numerous transformations to the model.
 
 It seems that the unaccounted for variables (artist, genre, etc.) do much of the heavy lifting for a song's success. And honestly no surprise there. This would explain both why songs sound similar, and why those artists don't (and do) feel comfortable changing their styles.

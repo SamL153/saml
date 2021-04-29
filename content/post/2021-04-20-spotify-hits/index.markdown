@@ -17,7 +17,7 @@ image:
 projects: []
 ---
 
-It doen't take an avid music listener to notice that many popular songs have the same formula to them. Radio stations can often sound like the same song is playing on repeat, with slightly different variants of the same song gaining recognition and winning awards.
+It doesn't take an avid music listener to notice that many popular songs have the same formula to them. Radio stations can often sound like the same song is playing on repeat, with slightly different variants of the same song gaining recognition and winning awards.
 
 This very thought led me to find a Spotify dataset that contained all Billboard top 10 songs from the years 2010 to 2019. All there was left to do was explore it a bit.
 
@@ -80,7 +80,7 @@ Songs that generally have the same sound could be explained by a number of reaso
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#cziqurrlqn .gt_table {
+#svyspyclqd .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -105,7 +105,7 @@ Songs that generally have the same sound could be explained by a number of reaso
   border-left-color: #D3D3D3;
 }
 
-#cziqurrlqn .gt_heading {
+#svyspyclqd .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -117,7 +117,7 @@ Songs that generally have the same sound could be explained by a number of reaso
   border-right-color: #D3D3D3;
 }
 
-#cziqurrlqn .gt_title {
+#svyspyclqd .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -127,7 +127,7 @@ Songs that generally have the same sound could be explained by a number of reaso
   border-bottom-width: 0;
 }
 
-#cziqurrlqn .gt_subtitle {
+#svyspyclqd .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -137,13 +137,13 @@ Songs that generally have the same sound could be explained by a number of reaso
   border-top-width: 0;
 }
 
-#cziqurrlqn .gt_bottom_border {
+#svyspyclqd .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#cziqurrlqn .gt_col_headings {
+#svyspyclqd .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -158,7 +158,7 @@ Songs that generally have the same sound could be explained by a number of reaso
   border-right-color: #D3D3D3;
 }
 
-#cziqurrlqn .gt_col_heading {
+#svyspyclqd .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -178,7 +178,7 @@ Songs that generally have the same sound could be explained by a number of reaso
   overflow-x: hidden;
 }
 
-#cziqurrlqn .gt_column_spanner_outer {
+#svyspyclqd .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -190,15 +190,15 @@ Songs that generally have the same sound could be explained by a number of reaso
   padding-right: 4px;
 }
 
-#cziqurrlqn .gt_column_spanner_outer:first-child {
+#svyspyclqd .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#cziqurrlqn .gt_column_spanner_outer:last-child {
+#svyspyclqd .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#cziqurrlqn .gt_column_spanner {
+#svyspyclqd .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -210,7 +210,7 @@ Songs that generally have the same sound could be explained by a number of reaso
   width: 100%;
 }
 
-#cziqurrlqn .gt_group_heading {
+#svyspyclqd .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -232,7 +232,7 @@ Songs that generally have the same sound could be explained by a number of reaso
   vertical-align: middle;
 }
 
-#cziqurrlqn .gt_empty_group_heading {
+#svyspyclqd .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -247,15 +247,15 @@ Songs that generally have the same sound could be explained by a number of reaso
   vertical-align: middle;
 }
 
-#cziqurrlqn .gt_from_md > :first-child {
+#svyspyclqd .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#cziqurrlqn .gt_from_md > :last-child {
+#svyspyclqd .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#cziqurrlqn .gt_row {
+#svyspyclqd .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -274,7 +274,7 @@ Songs that generally have the same sound could be explained by a number of reaso
   overflow-x: hidden;
 }
 
-#cziqurrlqn .gt_stub {
+#svyspyclqd .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -286,7 +286,7 @@ Songs that generally have the same sound could be explained by a number of reaso
   padding-left: 12px;
 }
 
-#cziqurrlqn .gt_summary_row {
+#svyspyclqd .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -296,7 +296,7 @@ Songs that generally have the same sound could be explained by a number of reaso
   padding-right: 5px;
 }
 
-#cziqurrlqn .gt_first_summary_row {
+#svyspyclqd .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -306,7 +306,7 @@ Songs that generally have the same sound could be explained by a number of reaso
   border-top-color: #D3D3D3;
 }
 
-#cziqurrlqn .gt_grand_summary_row {
+#svyspyclqd .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -316,7 +316,7 @@ Songs that generally have the same sound could be explained by a number of reaso
   padding-right: 5px;
 }
 
-#cziqurrlqn .gt_first_grand_summary_row {
+#svyspyclqd .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -326,11 +326,11 @@ Songs that generally have the same sound could be explained by a number of reaso
   border-top-color: #D3D3D3;
 }
 
-#cziqurrlqn .gt_striped {
+#svyspyclqd .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#cziqurrlqn .gt_table_body {
+#svyspyclqd .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -339,7 +339,7 @@ Songs that generally have the same sound could be explained by a number of reaso
   border-bottom-color: #D3D3D3;
 }
 
-#cziqurrlqn .gt_footnotes {
+#svyspyclqd .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -353,13 +353,13 @@ Songs that generally have the same sound could be explained by a number of reaso
   border-right-color: #D3D3D3;
 }
 
-#cziqurrlqn .gt_footnote {
+#svyspyclqd .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#cziqurrlqn .gt_sourcenotes {
+#svyspyclqd .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -373,46 +373,46 @@ Songs that generally have the same sound could be explained by a number of reaso
   border-right-color: #D3D3D3;
 }
 
-#cziqurrlqn .gt_sourcenote {
+#svyspyclqd .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#cziqurrlqn .gt_left {
+#svyspyclqd .gt_left {
   text-align: left;
 }
 
-#cziqurrlqn .gt_center {
+#svyspyclqd .gt_center {
   text-align: center;
 }
 
-#cziqurrlqn .gt_right {
+#svyspyclqd .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#cziqurrlqn .gt_font_normal {
+#svyspyclqd .gt_font_normal {
   font-weight: normal;
 }
 
-#cziqurrlqn .gt_font_bold {
+#svyspyclqd .gt_font_bold {
   font-weight: bold;
 }
 
-#cziqurrlqn .gt_font_italic {
+#svyspyclqd .gt_font_italic {
   font-style: italic;
 }
 
-#cziqurrlqn .gt_super {
+#svyspyclqd .gt_super {
   font-size: 65%;
 }
 
-#cziqurrlqn .gt_footnote_marks {
+#svyspyclqd .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="cziqurrlqn" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="svyspyclqd" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   <thead class="gt_header">
     <tr>
       <th colspan="3" class="gt_heading gt_title gt_font_normal" style># of Genres for Artists with Multiple Hits</th>
@@ -490,7 +490,7 @@ I then started wondering about one-hit wonders and the effect that the addition 
 <img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 It's hard to find a trend in the first half of the decade. However, after the spike in 2015, there's a marked decrease in the number of artists that were able to produce multiple hit songs within a year. Rather than attributing this trend solely to streaming platforms, it may also be a byproduct of increasing ways to produce music.
 
-Me, Myself, and I by G Eazy was unmistakably one of the biggest hits on the radio when it was released. Though what I found most interesting was the number of songs that went by the same title though created by different artists (Big Sean and Beyonce to name a couple) in different genres. This led me to investigate whether the subject of a song, expressed by its title, had an effect on whether it would be a hit.
+Me, Myself, and I by G-Eazy was unmistakably one of the biggest hits on the radio when it was released. Though what I found most interesting was the number of songs that went by the same title though created by different artists (Big Sean and Beyonce to name a couple) in different genres. This led me to investigate whether the subject of a song, expressed by its title, had an effect on whether it would be a hit.
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
@@ -537,6 +537,6 @@ After doing so, I created a basic model to identify the relationship.
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-1.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-2.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-3.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-4.png" width="672" />
 
-Here we very clearly see that the specifications of the songs aren't the the largest driving factor in the success of a song, as only danceability and speechiness were shown to be statistically significant. The same outcome held even with numerous transformations to the model.
+Here we very clearly see that the specifications of the songs aren't the largest driving factor in the success of a song, as only danceability and speechiness were shown to be statistically significant. The same outcome held even with numerous transformations to the model.
 
 It seems that the unaccounted for variables (artist, genre, etc.) do much of the heavy lifting for a song's success. And honestly no surprise there. This would explain both why songs sound similar, and why those artists don't (and do) feel comfortable changing their styles.
