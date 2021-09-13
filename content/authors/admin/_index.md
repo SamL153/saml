@@ -3,10 +3,10 @@ education:
   courses:
   - course: MS in Data Science & Business Analytics
     institution: UNC Charlotte
-    year: 2022
+    year: December 2022
   - course: BA in Economics
     institution: UNC Chapel Hill
-    year: 2021
+    year: May 2021
 email: "samuell2017@outlook.com"
 highlight_name: false
 interests:

@@ -22,13 +22,26 @@ date_format: Jan 2006
 #   Leave `date_end` empty if it's your current employer.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 experience:
+  - title: ISC Data Steward
+    company: UNC Charlotte Urban Institute
+    company_url: ''
+    company_logo:
+    location: Charlotte, NC
+    date_start: '2021-09-07'
+    date_end: ''
+    description: |2-
+        Responsibilities include:
+        
+        * Data Wrangling
+        * Database Management
+
   - title: Office Assistant
     company: UNC Housing
     company_url: ''
     company_logo:
     location: Chapel Hill, NC
     date_start: '2018-08-19'
-    date_end: ''
+    date_end: '2021-05-12'
     description: |2-
         Responsibilities include:
         
