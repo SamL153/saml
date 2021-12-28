@@ -1,0 +1,128 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+  Releasing in theaters on December 17th, 2021, Spider-Man: No Way Home has surpassed box office expectations and achieved opening weekend numbers that rivaled pre-pandemic figures. That being said, I still haven’t found my way to a movie theater to watch it myself. In lieu of this, I decided to do the next best thing and analyze some of the latest tweets mentioning the movie title.
+
+```{r include=FALSE}
+library(rtweet)
+library(tidyverse)
+library(tidytext)
+library(ggpubr)
+library(ggwordcloud)
+
+#grab tweets and visualize volume
+search_term <- '"Spider-Man: No Way Home"'
+by <- 'hour'
+
+scrape <- search_tweets(
+  search_term, n = 25000, include_rts = F, retryonratelimit = T
+)
+```
+```{r include=FALSE}
+scrape$date <- substr(scrape$created_at,1,10)
+tweets <- scrape %>%
+  unnest_tokens(word, text)
+
+
+filler <- tibble( #construct a dataframe
+  word = c(
+    "https",
+    "t.co",
+    "rt",
+    "amp",
+    "rstats",
+    "gt",'spider', 'man', 'no', 'way', 'home', 'de', 'del', 'el', 'la', 'es', 'los', 'se', 'por', 'con', 'le', 'en'
+  ),
+  lexicon = "twitter"
+)
+all_stops <- stop_words %>%
+  bind_rows(filler)
+no_nums <- tweets %>%
+  filter(is.na(as.numeric(word)))
+clean_tweets <- no_nums %>%
+  anti_join(all_stops, by = 'word')
+```
+
+	I used the rtweet package to extract the latest 25000 original tweets, which at the time ranged from Dec 21 to Dec 27, from Twitter’s REST and streaming APIs. After tokenizing the text and cleaning the dataset of filler words, I first visualized the volume of tweets made about the film by the hour.
+```{r}
+rtweet::ts_plot(tweets, by = by, trim = 1) + geom_point() + theme_minimal() + labs(title = paste0('Tweets mentioning ',search_term,' by ',by), subtitle = '9 AM Dec 21 to 10 PM Dec 27',
+x = 'Date', y = 'Count', caption = 'Source: Twitter API')
+ggsave('viz1.png')
+```
+
+In the plot, you can see that tweets declined slowly with each passing day, though peak times for tweeting seem to appear consistently across the days. There’s also a very noticeable lack of tweets on December 25th relative to the other days, an occurrence that is undoubtedly related to the Christmas holiday.
+```{r include=FALSE}
+#Get sentiment
+nrc <- get_sentiments('nrc')
+nrc_words <- clean_tweets %>%
+  inner_join(nrc, by =  'word')
+
+pie_words <- nrc_words %>%
+  group_by(sentiment) %>%
+  tally %>%
+  arrange(desc(n))
+```
+
+Beyond the quantity of tweets, I also wanted to get an image of how people felt about the film... without spoiling it for myself, of course. I accomplished this by grouping words within categories of the NRC Emotion Lexicon, obtaining a tally for each category, and visualizing this in the pie chart below.
+```{r}
+head(pie_words, 10)
+ggpie(pie_words, 'n', label = 'sentiment', fill = 'sentiment', color = 'white', palette = 'Spectral')
+ggsave('viz2.png')
+```
+
+The pie chart demonstrates a balanced demonstration of emotional lexicon and more positive than negative tweets recorded. While I’m pleased to see that audiences seemed to have a wide distribution of emotional responses, I’m unsure what this means for the mental toll the movie’s plot may bring me.
+
+```{r include=FALSE}
+#sentiment
+#add sentiment dataset
+sentiment_dataset <- get_sentiments("afinn")
+sentiment_dataset <- arrange(sentiment_dataset, -value)
+#merge
+affinity <- merge(clean_tweets, sentiment_dataset, by = 'word')
+
+#clean
+affinity$word <- NULL
+affinity$screen_name <- NULL
+#time
+affinity$hour <- format(round(affinity$created_at, units = "hours"), format = "%d:%H:%M")
+#pivot
+pivot <- affinity %>%
+  group_by(hour) %>%
+  summarize(affinity = mean(value))
+```
+
+To delve a bit deeper, I also visualized the affinity score over time for tweets mentioning the movie’s title, where affinity is a measure with a mean of 0 and positive values indicate positive sentiments expressed about the movie. In the plot, we see that the affinity score for the movie remains steadily above 1, with one dip serving as an exception.
+```{r}
+ggplot(pivot[-1,], aes(x = hour, y = affinity)) +
+  geom_line(group = 1) +
+  geom_point() +
+  theme_minimal() +
+  theme(axis.text.x = element_blank())+
+  labs(title = paste0('Sentiment of tweets mentioning ' ,search_term), subtitle = '9 AM Dec 21 to 10 PM Dec 27', x = 'Time', y = 'Affinity', caption = 'Source: Twitter API')
+ggsave('viz3.png')
+```
+
+```{r include=FALSE}
+words_count <- clean_tweets %>%
+  mutate(word = tolower(word)) %>%
+  count(word, sort = T)
+```
+
+
+```{r}
+set.seed(153)
+wordcloudplot <- head(words_count, 50) %>%
+  ggplot(aes(label = word, size = n, color = word, replace = T)) +
+  geom_text_wordcloud_area() +
+  scale_size_area(max_size = 20) +
+  labs(caption = 'Source: Twitter API') +
+  theme_minimal()
+wordcloudplot
+ggsave('viz4.png')
+```
+Lastly, I added a WordCloud plot to get a glimpse at words that are currently associated with the movie. Other than the lack of negative terms, there isn’t much insight to be gained from the word cloud. Instead, it vaguely resembles an unintended advertisement for Marvel’s relatively newer media projects.
+
+
+
