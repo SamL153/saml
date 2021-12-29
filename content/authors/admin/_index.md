@@ -10,12 +10,13 @@ education:
 email: "samuell2017@outlook.com"
 highlight_name: false
 interests:
-- Prediction
+- Natural Language Processing
 - Recommender Systems
+- Data Visualization
 organizations:
 - name: University of North Carolina - Charlotte
   url: https://www.uncc.edu/
-role: Masters of Data Science and Business Analytics Candidate
+role: MS in Data Science and Business Analytics Candidate
 social:
 - icon: envelope
   icon_pack: fas
@@ -36,4 +37,4 @@ superuser: true
 title: Samuel Louissaint
 ---
 
-Samuel Louissaint is a UNC Chapel Hill alum with a BA in Economics, with minors in Statistics and PPE. He is also a first-year graduate student in UNC Charlotte's Data Science & Business Analytics PSM program. His research interests include prediction and recommender systems.
+Samuel Louissaint is a UNC Chapel Hill alum with a BA in Economics, with minors in Statistics and PPE. He is also a first-year graduate student in UNC Charlotte's Data Science & Business Analytics PSM program. His research interests include natural language processing and recommender systems.

@@ -29,7 +29,7 @@ Beyond the quantity of tweets, I also wanted to get an image of how people felt 
 
 ![Pie Chart](/media/spidey_sentiment/viz2.png)
 
-The pie chart demonstrates a balanced demonstration of emotional lexicon and more positive than negative tweets recorded. While I’m pleased to see that audiences seemed to have a wide distribution of emotional responses, I’m unsure what this means for the mental toll the movie’s plot may bring me.
+The features of the pie chart show a balanced demonstration of emotional lexicon and more positive than negative tweets recorded. While I’m pleased to see that audiences seemed to have a wide distribution of emotional responses, I’m unsure what this means for the mental toll the movie’s plot may bring me.
 
 To delve a bit deeper, I also visualized the affinity score over time for tweets mentioning the movie’s title, where affinity is a measure with a mean of 0 and positive values indicate positive sentiments expressed about the movie. In the plot, we see that the affinity score for the movie remains steadily above 1, with one dip serving as an exception.
 

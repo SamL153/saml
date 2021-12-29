@@ -32,7 +32,8 @@ experience:
     description: |2-
         Responsibilities include:
         
-        * Data Wrangling
+        * ETL
+        * Data Wrangling and Preprocessing
         * Database Management
 
   - title: Office Assistant

@@ -21,9 +21,13 @@ feature:
   icon_pack: fab
   name: R
 - description:
-  icon: chart-line
+  icon: python
+  icon_pack: fab
+  name: Python
+- description:
+  icon: database
   icon_pack: fas
-  name: Statistics
+  name: SQL
 
 
 # Uncomment to use emoji icons.
