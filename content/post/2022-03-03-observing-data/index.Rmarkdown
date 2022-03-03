@@ -1,21 +1,26 @@
 ---
-title: "Applied Machine Learning: Observing Data"
-author: "Samuel Louissaint"
-date: '2022-03-02'
+title: Observing Data
+author: Samuel Louissaint
+date: '2022-03-03'
+categories:
+  - R
+  - Applied Machine Learning
+tags:
+  - dashboard
+  - machine learning
+  - shiny
+  - visualization
+  - data exploration
 slug: observing-data
-categories: []
-tags: []
-subtitle: ''
-summary: ''
-authors: []
-lastmod: '2022-03-02T12:47:13-04:00'
+lastmod: '2022-03-03T00:03:42-05:00'
 featured: no
 image:
   caption: ''
   focal_point: ''
   preview_only: no
-projects: []
+runtime: shiny
 ---
+
 
 
 
@@ -191,7 +196,7 @@ dim(auto_mpg)
 length(which(is.na(auto_mpg)))
 ```
 
-In the following app, we'll practice using sliders and selection tools to filter data for description and visualization.
+In the following app, we'll practice using sliders and selection tools to filter data for description and visualization. The code is below with a few comments to serve as guidance, the result follow!
 
 In addition, here's very helpful R Shiny's documentation for how to [deploy](https://shiny.rstudio.com/deploy/) an app to the web along with a [blog post](https://statsandr.com/blog/how-to-embed-a-shiny-app-in-blogdown/) for how to embed your Shiny apps into a blogdown site. Just load packages that you need within the app before you deploy it!
 
@@ -260,3 +265,6 @@ sumdt[,c(14,1:13)] })
 # Run the application 
 shinyApp(ui = ui, server = server)
 ```
+
+<iframe height="800" width="100%" frameborder="no" src="https://samuellouissaint.shinyapps.io/forest_fires/"> </iframe>
+
