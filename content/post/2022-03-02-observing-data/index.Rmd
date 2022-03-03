@@ -1,6 +1,20 @@
 ---
 title: "Applied Machine Learning: Observing Data"
-output: html_notebook
+author: "Samuel Louissaint"
+date: '2022-03-02'
+slug: observing-data
+categories: []
+tags: []
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2022-03-02T12:47:13-04:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
 ---
 
 
