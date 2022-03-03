@@ -6,11 +6,11 @@ $text-muted: rgba(0, 0, 0, 0.54);
 
 // Container widths
 $container-max-widths: (
-  sm: 1080px,
-  md: 1180px,
-  lg: 1290px,
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
   // wider default: 1140 -> 1290
-  xl: 1400px,
+  xl: 1290px,
 );
 
 $navbar-toggler-padding-x: 0;
