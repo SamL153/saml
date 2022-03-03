@@ -21,4 +21,4 @@
     debug = true
 
 [[params.customCSS]]
- href = "~/saml/static/css/page_width.css"
+ href = "~/static/css/page_width.css"
