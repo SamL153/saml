@@ -205,7 +205,7 @@ length(which(is.na(auto_mpg)))
 
 In the following app, we'll used sliders and selection tools to filter data for description and visualization. The code to create it is below with a few comments to serve as guidance!
 
-<iframe height="800" width="100%" frameborder="no" src="https://samuellouissaint.shinyapps.io/forest_fires/"> </iframe>
+<iframe height="800" width="180%" frameborder="no" src="https://samuellouissaint.shinyapps.io/forest_fires/"> </iframe>
 
 In addition, here's very helpful R Shiny's documentation for how to [deploy](https://shiny.rstudio.com/deploy/) an app to the web along with a [blog post](https://statsandr.com/blog/how-to-embed-a-shiny-app-in-blogdown/) for how to embed your Shiny apps into a blogdown site. Just load packages that you need within the app before you deploy it!
 
