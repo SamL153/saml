@@ -2,26 +2,31 @@
 title: Applied Machine Learning - Observing Data
 author: Samuel Louissaint
 date: '2022-03-03'
+slug: observing-data
 categories:
   - R
   - Applied Machine Learning
 tags:
   - dashboard
+  - data exploration
   - machine learning
   - shiny
   - visualization
-  - data exploration
-slug: observing-data
-lastmod: '2022-03-03T00:03:42-05:00'
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2022-03-03T00:25:43-05:00'
 featured: no
 image:
   caption: ''
   focal_point: ''
   preview_only: no
+projects: []
+output:
+  blogdown::html_page:
+    toc: false
 runtime: shiny
 ---
-
-
 
 
 #### This is the first entry in a series where I will be using R to replicate a graduate-level applied machine learning course that is purely in Python.
@@ -48,7 +53,8 @@ ff_data <- read_csv('forestfires.csv', show_col_types = F)
 ff_data # Let's take a look at what we've loaded.
 ```
 
-In Python, we completed this first task using 'np.loadtxt()' which created an intentional error that required students to convert the month and day columns to numeric values. For the sake of being thorough, one way (of many) to do this is in the chunk below.
+In Python, we completed this first task using 'np.loadtxt()' which created an intentional error that required students to convert the month and day columns to numeric values. For the sake of being thorough, one way (of many) to do this is in the chunk below.  
+I'll be demonstrating only the last 20 observations when printing dataframes only due to the length of the data.
 ```{r}
 ## The function case_when takes a logical statement and performs an action when that result of the statement is TRUE. In that way it's very similar to if-else functions though I prefer case_when in these situations.
 ff_data_num <- as.data.frame(ff_data %>%
@@ -71,7 +77,7 @@ ff_data_num <- as.data.frame(ff_data %>%
                          day =='fri' ~ 5,
                          day =='sat' ~ 6,
                          day =='sun' ~ 7)))
-ff_data_num # Once again, let's see what we did.
+tail(ff_data_num, 20) # Once again, let's see what we did.
 ```
 
 Next we'll use a few functions to learn some details about our data.
@@ -84,12 +90,12 @@ length(which(is.na(ff_data_num))) # returns number of NA values in the data
 
 Splicing and indexing dataframes is a useful way to access pieces of your data. This can be done within and outside of tidyverse relatively easily.
 ```{r}
-ff_data_num['area']
+tail(ff_data_num['area'], 20)
 # we indexed the area column here by calling the column in a string however these methods following the dataframe name produce the same output:
 # [,'area'], [,13], [, -1:-12]
 
-ff_data_num %>%
-  select(area)
+tail(ff_data_num %>%
+  select(area), 20)
 ```
 
 Unlike pandas.describe(), the summary function used in R doesn't include the count or standard deviation for numeric columns.
@@ -98,8 +104,8 @@ summary(ff_data_num)
 ```
 
 ## Visualizing Data
-For 
-```{r}
+The grammar of graphics package known as ggplot2 is the primary graphical visualization package in R. We'll flex its muscles just a bit to demonstrate a simple line chart and histogram. Notice there are a large number of forest fires with an area of 0. This is the reason I've opted to display the last twenty observations instead of the first twenty. This is also something to keep in mind for the Shiny app at the end.
+```{r, warning = F}
 ggplot(ff_data_num) +
   geom_line(aes(1:length(ff_data_num$area), area, color = 'coral2')) +
   labs(x= 'Row Number') +
@@ -111,7 +117,7 @@ ggplot(ff_data_num, mapping = aes(area, fill = 'coral2')) +
 
 ## Putting it all together
 ### Splitting data into features and targets
-In later posts, we'll want to predict a given feature which we refer to as our target. The remaining features will act as our inpu data to predict the target. Thus it can be usefull to split our input features and target into two different variables.
+In later posts, we'll want to predict a given feature which we refer to as our target. The remaining features will act as our input data to predict the target. Thus it can be useful to split our input features and target into two different variables.
 ```{r}
 t <- ff_data_num %>% select(area)
 head(t)
@@ -196,7 +202,9 @@ dim(auto_mpg)
 length(which(is.na(auto_mpg)))
 ```
 
-In the following app, we'll practice using sliders and selection tools to filter data for description and visualization. The code is below with a few comments to serve as guidance, the result follow!
+In the following app, we'll used sliders and selection tools to filter data for description and visualization. The code to create it is below with a few comments to serve as guidance!
+
+<iframe height="800" width="100%" frameborder="no" src="https://samuellouissaint.shinyapps.io/forest_fires/"> </iframe>
 
 In addition, here's very helpful R Shiny's documentation for how to [deploy](https://shiny.rstudio.com/deploy/) an app to the web along with a [blog post](https://statsandr.com/blog/how-to-embed-a-shiny-app-in-blogdown/) for how to embed your Shiny apps into a blogdown site. Just load packages that you need within the app before you deploy it!
 
@@ -265,6 +273,3 @@ sumdt[,c(14,1:13)] })
 # Run the application 
 shinyApp(ui = ui, server = server)
 ```
-
-<iframe height="800" width="100%" frameborder="no" src="https://samuellouissaint.shinyapps.io/forest_fires/"> </iframe>
-

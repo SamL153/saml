@@ -1,6 +1,6 @@
 ---
-title: Applied Machine Learning - Observing Data
-author: Samuel Louissaint
+title: 'Applied Machine Learning - Observing Data'
+author: 'Samuel Louissaint'
 date: '2022-03-03'
 slug: observing-data
 categories:
@@ -25,7 +25,6 @@ projects: []
 output:
   blogdown::html_page:
     toc: false
-runtime: shiny
 ---
 
 
