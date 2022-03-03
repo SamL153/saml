@@ -1,5 +1,5 @@
 ---
-title: Observing Data
+title: Applied Machine Learning - Observing Data
 author: Samuel Louissaint
 date: '2022-03-03'
 slug: observing-data
@@ -114,7 +114,7 @@ ggplot(ff_data_num, mapping = aes(area, fill = 'coral2')) +
 
 ## Putting it all together
 ### Splitting data into features and targets
-In later posts, we'll want to predict a given feature which we refer to as our target. The remaining features will act as our input data to predict the target. Thus it can be usefull to split our input features and target into two different variables.
+In later posts, we'll want to predict a given feature which we refer to as our target. The remaining features will act as our input data to predict the target. Thus it can be useful to split our input features and target into two different variables.
 ```{r}
 t <- ff_data_num %>% select(area)
 head(t)
