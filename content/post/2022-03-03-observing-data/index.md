@@ -310,7 +310,7 @@ ggplot(ff_data_num, mapping = aes(area, fill = 'coral2')) +
 <img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-2.png" width="672" />
 
 ## Putting it all together
-### Splitting data into features and targets
+#### Splitting data into features and targets
 In later posts, we'll want to predict a given feature which we refer to as our target. The remaining features will act as our input data to predict the target. Thus it can be useful to split our input features and target into two different variables.
 
 ```r
