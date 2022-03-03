@@ -109,7 +109,6 @@ In Python, we completed this first task using 'np.loadtxt()' which created an in
 I'll be demonstrating only the last 20 observations when printing dataframes only due to the length of the data.
 
 ```r
-## The function case_when takes a logical statement and performs an action when that result of the statement is TRUE. In that way it's very similar to if-else functions though I prefer case_when in these situations.
 ff_data_num <- as.data.frame(ff_data %>%
   mutate(month = case_when(month =='jan' ~ 1,
                            month =='feb' ~ 2,
@@ -156,7 +155,8 @@ tail(ff_data_num, 20) # Once again, let's see what we did.
 ## 516 1 4     8   6 94.4 146.0 614.7 11.3 25.6 42  4.0  0.0  0.00
 ## 517 6 3    11   2 79.5   3.0 106.7  1.1 11.8 31  4.5  0.0  0.00
 ```
-
+The case_when function takes a logical statement and performs an action in cases where the result is TRUE. In that way it's very similar to if-else functions though I prefer case_when in these situations.
+  
 Next we'll use a few functions to learn some details about our data.
 
 ```r
@@ -228,7 +228,7 @@ tail(ff_data_num['area'], 20)
 ```
 
 ```r
-# we indexed the area column here by calling the column in a string however these methods following the dataframe name produce the same output:
+# these indexing methods following the dataframe name produce the same output:
 # [,'area'], [,13], [, -1:-12]
 
 tail(ff_data_num %>%
@@ -359,7 +359,7 @@ p10 <- qplot(1:length(RH), RH, data = X, geom = "line")
 p11 <- qplot(1:length(wind), wind, data = X, geom = "line")
 p12 <- qplot(1:length(rain), rain, data = X, geom = "line")
 
-grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, nrow = 3, ncol = 4) # nrow and ncol specify the number of rows and columns you'd like the plots to be organized into
+grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, nrow=3, ncol=4)
 ```
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="1152" />
@@ -380,7 +380,7 @@ p10 <- qplot(x = X$RH, y =  t$area, geom = "point")
 p11 <- qplot(x = X$wind, y =  t$area, geom = "point")
 p12 <- qplot(x = X$rain, y =  t$area, geom = "point")
 
-grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, nrow = 3, ncol = 4)
+grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, nrow=3, ncol=4)
 ```
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-1.png" width="1152" />
@@ -413,7 +413,7 @@ p10 <- qplot(x = X$RH, y =  t$logarea, geom = "point")
 p11 <- qplot(x = X$wind, y =  t$logarea, geom = "point")
 p12 <- qplot(x = X$rain, y =  t$logarea, geom = "point")
 
-grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, nrow = 3, ncol = 4)
+grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, nrow=3, ncol=4)
 ```
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="672" />
@@ -423,7 +423,8 @@ grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, nrow = 3, ncol =
 Here we'll be performing some of the same operations done above. Afterwards, to emulate Streamlit's ability to build interactive tools / dashboards, we'll create our first R Shiny app! (My first at least).
 
 ```r
-columns <- c('mpg', 'cylinders', 'displacement', 'horsepower', 'weight', 'acceleration', 'model year', 'origin', 'car name')
+columns <- c('mpg', 'cylinders', 'displacement', 'horsepower', 'weight',
+'acceleration', 'model year', 'origin', 'car name')
 auto_mpg <- read_table("auto-mpg.data-original", 
     col_names = columns)
 ```
@@ -552,7 +553,8 @@ sumdt[,c(14,1:13)] })
         geom_point(aes(temp, area))
       plot4 <- ggplot(data = dt) +
         geom_point(aes(wind, area))
-      grid.arrange(plot1, plot2, plot3, plot4, nrow = 2, ncol = 2, top = textGrob(paste("The number of filtered data samples:", dim(dt)[1])))
+      grid.arrange(plot1, plot2, plot3, plot4, nrow = 2, ncol = 2,
+      top = textGrob(paste("The number of filtered data samples:", dim(dt)[1])))
     }) }
 
 # Run the application 

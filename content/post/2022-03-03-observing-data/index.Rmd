@@ -52,7 +52,6 @@ ff_data # Let's take a look at what we've loaded.
 In Python, we completed this first task using 'np.loadtxt()' which created an intentional error that required students to convert the month and day columns to numeric values. For the sake of being thorough, one way (of many) to do this is in the chunk below.  
 I'll be demonstrating only the last 20 observations when printing dataframes only due to the length of the data.
 ```{r}
-## The function case_when takes a logical statement and performs an action when that result of the statement is TRUE. In that way it's very similar to if-else functions though I prefer case_when in these situations.
 ff_data_num <- as.data.frame(ff_data %>%
   mutate(month = case_when(month =='jan' ~ 1,
                            month =='feb' ~ 2,
@@ -75,6 +74,7 @@ ff_data_num <- as.data.frame(ff_data %>%
                          day =='sun' ~ 7)))
 tail(ff_data_num, 20) # Once again, let's see what we did.
 ```
+The case_when function takes a logical statement and performs an action in cases where the result is TRUE. In that way it's very similar to if-else functions though I prefer case_when in these situations.
 
 Next we'll use a few functions to learn some details about our data.
 ```{r}
@@ -87,7 +87,7 @@ length(which(is.na(ff_data_num))) # returns number of NA values in the data
 Splicing and indexing dataframes is a useful way to access pieces of your data. This can be done within and outside of tidyverse relatively easily.
 ```{r}
 tail(ff_data_num['area'], 20)
-# we indexed the area column here by calling the column in a string however these methods following the dataframe name produce the same output:
+# these indexing methods following the dataframe name produce the same output:
 # [,'area'], [,13], [, -1:-12]
 
 tail(ff_data_num %>%
@@ -136,7 +136,7 @@ p10 <- qplot(1:length(RH), RH, data = X, geom = "line")
 p11 <- qplot(1:length(wind), wind, data = X, geom = "line")
 p12 <- qplot(1:length(rain), rain, data = X, geom = "line")
 
-grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, nrow = 3, ncol = 4) # nrow and ncol specify the number of rows and columns you'd like the plots to be organized into
+grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, nrow=3, ncol=4)
 ```
 
 Plotting the data with lines doesn't always make sense, so creating a scatterplot will often time make it easier to identify relationships between variables.
@@ -154,7 +154,7 @@ p10 <- qplot(x = X$RH, y =  t$area, geom = "point")
 p11 <- qplot(x = X$wind, y =  t$area, geom = "point")
 p12 <- qplot(x = X$rain, y =  t$area, geom = "point")
 
-grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, nrow = 3, ncol = 4)
+grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, nrow=3, ncol=4)
 ```
 
 Remember the histogram from earlier? The skew in the data can be a massive issue for further analysis or ML model application. To amplify the difference in the data, we'll spread them out by taking the log. The 2nd histogram demonstrates the new distribution.
@@ -181,14 +181,15 @@ p10 <- qplot(x = X$RH, y =  t$logarea, geom = "point")
 p11 <- qplot(x = X$wind, y =  t$logarea, geom = "point")
 p12 <- qplot(x = X$rain, y =  t$logarea, geom = "point")
 
-grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, nrow = 3, ncol = 4)
+grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, nrow=3, ncol=4)
 ```
 
 ## Practice Using the Auto MPG dataset
 
 Here we'll be performing some of the same operations done above. Afterwards, to emulate Streamlit's ability to build interactive tools / dashboards, we'll create our first R Shiny app! (My first at least).
 ```{r, warning=FALSE}
-columns <- c('mpg', 'cylinders', 'displacement', 'horsepower', 'weight', 'acceleration', 'model year', 'origin', 'car name')
+columns <- c('mpg', 'cylinders', 'displacement', 'horsepower', 'weight',
+             'acceleration', 'model year', 'origin', 'car name')
 auto_mpg <- read_table("auto-mpg.data-original", 
     col_names = columns)
 head(auto_mpg)
@@ -263,7 +264,8 @@ sumdt[,c(14,1:13)] })
         geom_point(aes(temp, area))
       plot4 <- ggplot(data = dt) +
         geom_point(aes(wind, area))
-      grid.arrange(plot1, plot2, plot3, plot4, nrow = 2, ncol = 2, top = textGrob(paste("The number of filtered data samples:", dim(dt)[1])))
+      grid.arrange(plot1, plot2, plot3, plot4, nrow = 2, ncol = 2,
+                   top = textGrob(paste("The number of filtered data samples:", dim(dt)[1])))
     }) }
 
 # Run the application 
