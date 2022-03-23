@@ -24,9 +24,14 @@ This very thought led me to find a Spotify dataset that contained all Billboard 
 library(tidyverse)
 library(readr)
 library(gt)
-top10s = read.csv("~/Data Science/Personal Website/saml/content/post/2021-04-20-spotify-hits/top10s.csv")
+library(caret)
+library(gam)
+library(MLmetrics)
+library(grid)
+library(gridExtra)
+topten = read.csv("~/Data Science/Personal Website/saml/content/post/2021-04-20-spotify-hits/top10s.csv")
 no1 = read.csv("~/Data Science/Personal Website/saml/content/post/2021-04-20-spotify-hits/Number1s.csv")
-head(top10s)
+head(topten)
 head(no1)
 ```
 
@@ -46,19 +51,19 @@ While the categorical variables are self-explanatory, here's a key for the quant
     - speechiness (Ranges from 0 to 1)
 
 ```{r echo=TRUE}
-summary(top10s)
+summary(topten)
 ```
 
-Songs that generally have the same sound could be explained by a number of reasons, such as coming from the same genre or artist. With that in mind, I wanted to explore the relationship between top songs and the artist making them a little more.
+Songs that generally have the same sound could be explained by a number of reasons, such as coming from the same genre or artist. With that in mind, I wanted to explore the relationship between top songs and the artist making them.
 ```{r echo=FALSE}
-Data1a = top10s %>%
+Data1a = topten %>%
   transmute(artist, year) %>%
   group_by(artist)
 Data1b = Data1a %>%
   count(artist) %>%
   filter(n >= 10)
 ggplot(Data1b)+
-  geom_point(mapping = aes(x = artist, y = n)) +
+  geom_point(mapping = aes(x = artist, y = n), color = 'green') +
   ggtitle("# of Top 10 Appearances by Top Artists (n >= 10)") +
   ylab("# of Songs") +
   xlab("Artist") +
@@ -66,7 +71,7 @@ ggplot(Data1b)+
 ```
 
 ```{r echo=FALSE}
-ArtistGenres <- top10s %>%
+ArtistGenres <- topten %>%
   group_by(year, top.genre) %>%
   count(artist)%>%
   ungroup() %>%
@@ -84,8 +89,6 @@ ByYear <- ArtistGenres %>%
   count() %>%
   ungroup()
 
-library(gt)
-
 tableOut <- ByYear %>%
   gt() %>%
   tab_header(title = "# of Genres for Artists with Multiple Hits", subtitle = "For each artitst with multiple hits in a year, in  how many genres were their  hits?") %>%
@@ -94,12 +97,12 @@ tableOut <- ByYear %>%
 
 tableOut
 ```
-This brief investigation tells us the top artists over the 10-year period as well as the fact that their respective hits were all within the same genre. This lets us know that artists are hesitant to change the formulas that bring them success. Or that listeners aren't interested in the songs that do change that formula. 
+This brief investigation tells us the top artists over the 10-year period as well as the fact that their respective hits were all within the same genre. This implies that artists are hesitant to change the formulas that bring them success. Or that listeners aren't interested in the songs that do change that formula. 
 
 
 I then started wondering about one-hit wonders and the effect that the addition of new streaming platforms had on the variety of artists that created hits.
 ```{r echo=FALSE}
-SongsYr <- top10s %>%
+SongsYr <- topten %>%
   group_by(year) %>%
   count(artist)%>%
   ungroup()
@@ -110,7 +113,7 @@ Artists2Hits <- SongsYr %>%
   mutate(artists = n, .keep = "unused")
 
 ggplot(data = Artists2Hits) + 
-  geom_bar(mapping = aes(x = year, y = artists), stat = "identity") +
+  geom_bar(mapping = aes(x = year, y = artists), fill = 'green', stat = "identity") +
   ggtitle("# of artists with more than one hit song by year") +
   scale_x_continuous("Year", labels = seq(2010, 2020), breaks = seq(2010, 2020)) + 
   ylab ("Artists with multiple hits") + theme_minimal()
@@ -120,30 +123,30 @@ It's hard to find a trend in the first half of the decade. However, after the sp
 Me, Myself, and I by G-Eazy was unmistakably one of the biggest hits on the radio when it was released. Though what I found most interesting was the number of songs that went by the same title though created by different artists (Big Sean and Beyonce to name a couple) in different genres. This led me to investigate whether the subject of a song, expressed by its title, had an effect on whether it would be a hit.
 
 ```{r echo=FALSE}
-youtitle = top10s %>%
+youtitle = topten %>%
   filter(str_detect(title,"You")) %>%
   count(title)
 You= sum(youtitle$n)-7
 #7 of these 82 don't fall under the you/your/you're family, and will be excluded. Leaving 75.
-lovetitle = top10s %>%
+lovetitle = topten %>%
   filter(str_detect(title,"Love")) %>%
   count(title)
 Love = sum(lovetitle$n)
-metitle = top10s %>%
+metitle = topten %>%
   filter(str_detect(title,"Me")) %>%
   count(title)
 Me = sum(metitle$n)-10
 #10 of these 54 either have the letters "me" as part of a larger word, or the "me" isn't part of the song title (i.e. being from a movie soundtrack with "me" in its title). Leaving 44.
-ititle = top10s %>%
+ititle = topten %>%
   filter(str_detect(title,"I" )) %>%
   count(title)
 I = sum(ititle$n)-47
 #47 of the 84 simply have the capital letter "I" in them. Leaving 37.
-ittitle = top10s %>%
+ittitle = topten %>%
   filter(str_detect(title,"It" )) %>%
   count(title)
 It = sum(ittitle$n)
-mytitle = top10s %>%
+mytitle = topten %>%
   filter(str_detect(title,"My" )) %>%
   count(title)
 My= sum(mytitle$n)
@@ -154,31 +157,75 @@ ggplot(data=q2data) +
   ggtitle("Relationship between Title Subject and Song Success")
 ```
 
-I do realize there is a level of overlap, such as the possibility that a song has multiple subjects and even a verb, allowing a song titled "I Love You" to be cross-listed 3 times. Despite this, "Love" had particularly interesting results in my opinion. Being the only word that is both a noun and a verb, I expected it to appear more often than all except for "You" which was understandably common.
+I did realize there is a level of overlap, such as the possibility that a song title has multiple subjects and even a verb, allowing a song titled "I Love You" to be cross-listed 3 times. Despite this, "Love" had particularly interesting results in my opinion. Being the only word that is both a noun and a verb, I expected it to appear more often than all except for "You" which was understandably common.
 
 Finally, I'm sure you've noticed the variable "pop" is intuitively related to the likelihood that a song would be in the Billboards Top 10. So I ventured to identify the relationship between the other quantitative variables and a song being a Billboards Number 1. For this, I created a dummy variable that represented whether a song was ever a Billboards Number 1. 
-```{r include=FALSE}
-q1top10 = top10s %>%
+```{r echo = FALSE}
+q1top10 = topten %>%
   select(2:15)
-no1 = read_csv("~/Data Science/Personal Website/saml/content/post/2021-04-20-spotify-hits/Number1s.csv")
 no1 = no1 %>%
   mutate(No.1 = 1) %>%
   select(-(2:14))
 no1s = q1top10 %>%
   left_join(no1, by="title","artist")
 no1s[is.na(no1s)] = 0
-str(no1s)
 no1s = no1s %>%
-  select(5:15)
+  select(5:15, -pop) %>%
+  mutate(No.1 = as.factor(ifelse(No.1 == 0, 'no', 'yes')))
+set.seed(30)
+index <- createDataPartition(no1s$No.1, p = 0.8, list = F)
+dtrain <- no1s[index,]
+dtest <- no1s[-index,]
 ```
 
-After doing so, I created a basic model to identify the relationship.
-```{r echo=FALSE}
-mod1 = glm(No.1~bpm+nrgy+dnce+dB+live+val+dur+acous+spch, data=no1s, "binomial")
-summary(mod1)
-plot(mod1)
+Unfortunately the target data is very unbalanced, with only 72 of 603 observations having been a billboards number 1. In an attempt to build a substantive model, I tried both oversampling and undersampling. But before that, I created a model using random forest with the unbalanced data to demonstrate the issue.
+```{r, warning=FALSE, echo=FALSE}
+set.seed(30)
+tcontrol <- trainControl(method = 'repeatedcv', number = 10, repeats = 10, verboseIter = F)
+
+rf <- train(No.1~., data = dtrain, method = 'rf', preProcess = c('scale', 'center'), trControl = tcontrol)
+final <- data.frame(actual = dtest$No.1, predicted = predict(rf, newdata = dtest, type = 'raw'))
+
+rf_cm <- confusionMatrix(final$predicted, dtest$No.1)
+rf_cm
 ```
+Based on the "No Information Rate" it's clear that there's such a strong majority in the target feature, the model simply predicts that practically no songs are  Billboards number 1s. This leads to a good accuracy score but awful kappa and specificity scores.  
 
-Here we very clearly see that the specifications of the songs aren't the largest driving factor in the success of a song, as only danceability and speechiness were shown to be statistically significant. The same outcome held even with numerous transformations to the model.
+Think of the kappa value as being indicative of how much of the prediction would be accurate even if all predictions were allocated to the majority class, 1 indicating it's a useful model despite unbalanced data and 0 meaning it isn't helpful.  
 
-It seems that the unaccounted for variables (artist, genre, etc.) do much of the heavy lifting for a song's success. And honestly no surprise there. This would explain both why songs sound similar, and why those artists don't (and do) feel comfortable changing their styles.
+To address this, first I tried undersampling and arrived at the following output.
+```{r, warning = FALSE,  echo = FALSE}
+set.seed(30)
+unders <- trainControl(method = 'repeatedcv', number = 10, repeats = 10, verboseIter = F, sampling = 'down')
+rf_under <- train(No.1~., data = dtrain, method = 'rf', preProcess = c('scale', 'center'), trControl = unders)
+final_under <- data.frame(actual = dtest$No.1, predicted = predict(rf_under, newdata = dtest))
+rf_under_cm <- confusionMatrix(final_under$predicted, dtest$No.1)
+rf_under_cm
+```
+While the undersampled model had a more even distribution of predictions for each class, this resulted in a test accuracy score that's worse than a theoretical coin flip.  
+The random forest model with oversampling resulted in the following output.
+```{r, warning = FALSE, echo = FALSE}
+set.seed(30)
+overs <- trainControl(method = 'repeatedcv', number = 10, repeats = 10, verboseIter = F, sampling = 'up')
+rf_over <- train(No.1~., data = dtrain, method = 'rf', preProcess = c('scale', 'center'), trControl = overs)
+final_over <- data.frame(actual = dtest$No.1, predicted = predict(rf_over, newdata = dtest))
+rf_over_cm <- confusionMatrix(final_over$predicted, dtest$No.1)
+rf_over_cm
+```
+The oversampled model ended up creating the same predictions as the original model, which again is a good accuracy score, but doesn't mean that the model is necessarily useful.  
+The box and whisker plots below demonstrate the accuracy and kappa for repeated attempts at training each model. For all three, the median kappa values are very low, implying that the models themselves didn't improve prediction much beyond predicting only the majority class.
+```{r, echo = FALSE}
+models <- list(original =  rf,
+               under = rf_under,
+               over = rf_over)
+resampling <- resamples(models)
+bwplot(resampling)
+```
+I found one interesting insight when plotting the variable importance for each model. Variable importance in the Caret package ranges from 0-100. Notice in the plot below, variable importance is much higher in oversampled model than in the undersampled and original models. This suggests that the model *did* learn some sort of pattern for prediction. However, the predictions from that model didn't change from those in the original model.
+```{r, echo = FALSE}
+oplot <- plot(varImp(rf, scale = F), main = 'Original')
+ovplot <- plot(varImp(rf_over, scale = F), main = 'Oversampling')
+unplot <- plot(varImp(rf_under, scale = F), main = 'Undersampling')
+grid.arrange(oplot, ovplot, unplot, nrow = 1, ncol = 3)
+```
+Based on this brief analysis, it appears that unaccounted for variables such as artist popularity, genre, and possibly the relationship between genre and year, do much of the heavy lifting for a song's success. And honestly no surprise there. This would explain why artists artists don't (or do) feel comfortable changing their styles.
