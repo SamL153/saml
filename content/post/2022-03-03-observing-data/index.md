@@ -22,9 +22,6 @@ image:
   focal_point: ''
   preview_only: no
 projects: []
-output:
-  blogdown::html_page:
-    toc: false
 ---
 
 
@@ -156,7 +153,7 @@ tail(ff_data_num, 20) # Once again, let's see what we did.
 ## 517 6 3    11   2 79.5   3.0 106.7  1.1 11.8 31  4.5  0.0  0.00
 ```
 The case_when function takes a logical statement and performs an action in cases where the result is TRUE. In that way it's very similar to if-else functions though I prefer case_when in these situations.
-  
+
 Next we'll use a few functions to learn some details about our data.
 
 ```r
@@ -424,7 +421,7 @@ Here we'll be performing some of the same operations done above. Afterwards, to 
 
 ```r
 columns <- c('mpg', 'cylinders', 'displacement', 'horsepower', 'weight',
-'acceleration', 'model year', 'origin', 'car name')
+             'acceleration', 'model year', 'origin', 'car name')
 auto_mpg <- read_table("auto-mpg.data-original", 
     col_names = columns)
 ```
@@ -489,7 +486,7 @@ length(which(is.na(auto_mpg)))
 
 In the following app, we'll used sliders and selection tools to filter data for description and visualization. The code to create it is below with a few comments to serve as guidance!
 
-<iframe height="800" width="180%" frameborder="no" src="https://samuellouissaint.shinyapps.io/forest_fires/"> </iframe>
+<iframe height="700" width="100%" frameborder="no" src="https://samuellouissaint.shinyapps.io/forest_fires/"> </iframe>
 
 In addition, here's very helpful R Shiny's documentation for how to [deploy](https://shiny.rstudio.com/deploy/) an app to the web along with a [blog post](https://statsandr.com/blog/how-to-embed-a-shiny-app-in-blogdown/) for how to embed your Shiny apps into a blogdown site. Just load packages that you need within the app before you deploy it!
 
@@ -554,7 +551,7 @@ sumdt[,c(14,1:13)] })
       plot4 <- ggplot(data = dt) +
         geom_point(aes(wind, area))
       grid.arrange(plot1, plot2, plot3, plot4, nrow = 2, ncol = 2,
-      top = textGrob(paste("The number of filtered data samples:", dim(dt)[1])))
+                   top = textGrob(paste("The number of filtered data samples:", dim(dt)[1])))
     }) }
 
 # Run the application 
